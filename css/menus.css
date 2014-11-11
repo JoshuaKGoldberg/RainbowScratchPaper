@@ -1,0 +1,61 @@
+/* General styles */
+
+html, body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: black;
+    font-family: sans-serif;
+    color: white;
+}
+
+h1 {
+    margin: 0;
+}
+
+
+/* Loading screen */
+
+body.loading #menus {
+    display: none;
+}
+
+body:not(.loading) #loader {
+    display: none;
+}
+
+#loader {
+    position: absolute;
+    top: 49%;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+
+/* General menu styles */
+
+.menu {
+    
+}
+
+
+/* Mobile styles */
+
+body.mobile {
+    background: red;
+}
+
+
+/* Tablet styles */
+
+body.tablet {
+    background: green;
+}
+
+
+/* Desktop styles */
+
+body.desktop {
+    background: blue;
+}
