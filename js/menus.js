@@ -1,9 +1,18 @@
-(function(container) {
-     /**
-      * Sets the .className of the container based on whether the screen is
-      * mobile or landscape. Regular gives "desktop", landscape mobile gives
-      * "tablet", and vertical mobile gives "mobile".
-      */
+(function(settings) {
+    // Useful for debugging.
+    var settings = settings;
+    
+    // The containing element, typically document.body
+    var container = settings.container;
+    
+    // The location.href minus the 
+    var sourceDir = settings.sourceDir;
+    
+    /**
+     * Sets the .className of the container based on whether the screen is
+     * mobile or landscape. Regular gives "desktop", landscape mobile gives
+     * "tablet", and vertical mobile gives "mobile".
+     */
     var checkMobile = function () {
         // http://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
         var agent = navigator.userAgent || navigator.vendor || window.opera,
@@ -36,25 +45,47 @@
     };
     
     /**
+     * 
+     */
+    var setButtonEffects = (function (sourceDir, buttons) {
+        buttons.forEach(function (button, i) {
+            button.style.backgroundImage = "url('" + sourceDir + "/assets/buttons/" + button.id + ".png')";
+        });
+        // "url('file:///C:/Users/Josh/Desktop/OneDrive/Repositories/RainbowScratchPaper/assets/buttons/1.png')";
+    }).bind(
+        this,
+        settings.sourceDir,
+        [].slice.call(container.querySelectorAll(".menu input[type=button]"))
+    );
+    
+    /**
      * Switches menus between the old class and the new class. Upon Function
-     * instantiation the .menu h1 elements are bound as an Array so only the
-     * class Strings must be passed in (menus are then assumed to be the parent
-     * of the h1 elements).
+     * instantiation the .menu h1 elements and container are bound as an Array
+     * so only the class Strings must be passed in (menus are then assumed to 
+     * be the parent of the h1 elements).
      * 
      * @param {Element[]} 
      * @param {String} classOld
      * @param {String} classNew
      */
-    var toggleMenuClasses = (function (heads, classOld, classNew) {
+    var toggleMenuClasses = (function (container, heads, classOld, classNew) {
         heads.forEach(function (head) {
             var menu = head.parentElement;
             menu.className = menu.className.replace(classOld, classNew);
             head.onclick = toggleMenuClasses.bind(this, classNew, classOld);
         });
-    }).bind(this, [].slice.call(container.querySelectorAll(".menu h1")));
+    }).bind(
+        this,
+        settings.container,
+        [].slice.call(container.querySelectorAll(".menu h1"))
+    );
     
     checkMobile();
-    toggleMenuClasses("menu-expanded", "menu-contracted");
+    setButtonEffects();
+    toggleMenuClasses("menu-contracted", "menu-expanded");
     
     window.onresize = checkMobile;
-})(document.body);
+})({
+    "container": document.body,
+    "sourceDir": location.href.slice(0, location.href.lastIndexOf("/"))
+});

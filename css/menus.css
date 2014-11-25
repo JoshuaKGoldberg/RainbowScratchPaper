@@ -43,11 +43,6 @@ body:not(.loading) #loader {
     overflow: hidden;
 }
 
-.menu h1 {
-    display: inline;
-    cursor: pointer;
-}
-
 .menu.menu-left {
     left: 0;
 }
@@ -56,11 +51,40 @@ body:not(.loading) #loader {
     right: 0;
 }
 
+
+/* Menu children */
+
+.menu h1 {
+    float: left;
+    cursor: pointer;
+}
+
+.menu hr {
+    clear: both;
+    margin-right: 1.4em;
+}
+
+.menu .menu-options {
+    display: inline-block;
+    margin: 0 1.17em 1.4em 0;
+}
+
 .menu p {
     margin: 0;
     padding: 0;
     height: 11.7em;
     overflow: auto;
+}
+
+.menu input[type=button] {
+    margin: 3px 1px;
+    width: 2.8em;
+    height: 2.8em;
+    background-color: transparent;
+    border: 1px solid rgba(140, 140, 140, .49);
+    border-radius: .21em;
+    background-size: 100% 100%;
+    cursor: pointer;
 }
 
 
@@ -75,16 +99,16 @@ body.mobile .menu {
 
 body.mobile .menu.menu-left {
     top: 0;
-    bottom: 67%;
+    bottom: 70%;
 }
 
 body.mobile .menu.menu-center {
-    top: 33%;
-    bottom: 33%;
+    top: 30%;
+    bottom: 30%;
 }
 
 body.mobile .menu.menu-right {
-    top: 67%;
+    top: 70%;
     bottom: 0;
 }
 
@@ -96,6 +120,14 @@ body.mobile .menu.menu-contracted.menu-right {
 body.mobile .menu.menu-contracted.menu-center {
     top: 0;
     height: 2.1em;
+}
+
+body.mobile .menu hr {
+    margin-right: 0;
+}
+
+body.mobile .menu p {
+    height: 14em;
 }
 
 
