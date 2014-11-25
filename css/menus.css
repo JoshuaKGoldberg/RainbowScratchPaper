@@ -42,6 +42,10 @@ body:not(.loading) #loader {
     bottom: 0;
 }
 
+.menu h1 {
+    cursor: pointer;
+}
+
 .menu.menu-left {
     left: 0;
 }
