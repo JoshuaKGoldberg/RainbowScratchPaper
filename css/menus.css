@@ -4,12 +4,14 @@ html, body {
     margin: 0;
     border: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     background: black;
     font-family: sans-serif;
     color: white;
 }
 
-h1 {
+h1, h2, h3 {
     margin: 0;
 }
 
@@ -36,26 +38,85 @@ body:not(.loading) #loader {
 /* General menu styles */
 
 .menu {
-    
+    position: absolute;
+    bottom: 0;
+}
+
+.menu.menu-left {
+    left: 0;
+}
+
+.menu.menu-right {
+    right: 0;
+}
+
+.menu p {
+    margin: 0;
+    padding: 0;
+    height: 11.7em;
+    overflow: auto;
 }
 
 
 /* Mobile styles */
 
-body.mobile {
+body.mobile .menu {
+    left: 0;
+    right: 0;
+    height: auto;
+    width: 100%;
     background: red;
+}
+
+body.mobile .menu.menu-left {
+    top: 0;
+    bottom: 67%;
+}
+
+body.mobile .menu.menu-center {
+    top: 33%;
+    bottom: 33%;
+}
+
+body.mobile .menu.menu-right {
+    top: 67%;
+    bottom: 0;
 }
 
 
 /* Tablet styles */
 
-body.tablet {
+body.tablet .menu {
+    height: auto;
     background: green;
+}
+
+body.tablet .menu.menu-left,
+body.tablet .menu.menu-right {
+    top: 0;
+    width: 7em;
+}
+
+body.tablet .menu.menu-center {
+    left: 7em;
+    right: 7em;
+    height: 8.4em;
 }
 
 
 /* Desktop styles */
 
-body.desktop {
+body.desktop .menu {
     background: blue;
+    height: 14em;
+}
+
+body.desktop .menu.menu-left,
+body.desktop .menu.menu-right {
+    width: 35%;
+}
+
+.menu.menu-center {
+    left: 35%;
+    right: 35%;
 }
