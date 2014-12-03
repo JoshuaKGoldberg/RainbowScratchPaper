@@ -26,7 +26,9 @@ body:not(.loading) #loader {
 .menu {
     position: absolute;
     bottom: 0;
+    padding: 0 7px .35em 7px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .menu.menu-left {
@@ -58,7 +60,7 @@ body:not(.loading) #loader {
 .menu p {
     margin: 0;
     padding: 0;
-    height: 11.7em;
+    /* height: 11.7em; */
     overflow: auto;
 }
 
@@ -81,27 +83,46 @@ body:not(.loading) #loader {
 
 /* Mobile styles */
 
+body.mobile #menus {
+    position: absolute;
+    height: 100%;
+    overflow: auto;
+    z-index: 14;
+}
+
 body.mobile .menu {
+    position: static;
+    display: block;
     left: 0;
     right: 0;
     height: auto;
     width: 100%;
-    font-size: 1.75em;
+    font-size: 2.8em;
+}
+
+body.mobile canvas {
+    position: absolute;
+    top: 0;
+}
+
+body.mobile .menu input[type=button] {
+    width: 117px;
+    height: 117px;
 }
 
 body.mobile .menu.menu-left {
-    top: 0;
-    bottom: 70%;
+    /* top: 0;
+    bottom: 70%; */
 }
 
 body.mobile .menu.menu-center {
-    top: 30%;
-    bottom: 30%;
+    /* top: 30%;
+    bottom: 30%; */
 }
 
 body.mobile .menu.menu-right {
-    top: 70%;
-    bottom: 0;
+    /* top: 70%;
+    bottom: 0; */
 }
 
 body.mobile .menu.menu-contracted.menu-left,
@@ -118,9 +139,9 @@ body.mobile .menu hr {
     margin-right: 0;
 }
 
-body.mobile .menu p {
+/* body.mobile .menu p {
     height: 14em;
-}
+} */
 
 
 /* Tablet styles */
@@ -158,7 +179,7 @@ body.tablet .menu.menu-contracted.menu-center {
 /* Desktop styles */
 
 body.desktop .menu {
-    height: 14em;
+    /* height: 14em; */
 }
 
 body.desktop .menu.menu-left,
