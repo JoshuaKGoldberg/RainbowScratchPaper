@@ -101,6 +101,8 @@ MenuAgent.prototype.getElements = function () {
     this.buttons = this.parent.querySelectorAll(".menu input[type=button]");
     
     this.buttonsKeyed = this.getButtonsKeyed();
+    
+    this.menuManualHide = this.parent.querySelector(".menu #mobile-exit");
 };
 
 /**
@@ -180,6 +182,9 @@ MenuAgent.prototype.setButtonEffects = function () {
         button.style.backgroundImage = "url('"
             + this.sourceDir + "/assets/buttons/" + button.id + ".png')";
     }
+    
+    // The manual mobile closer is manual.
+    this.menuManualHide.onclick = this.helpHead.click.bind(this.helpHead);
 };
 
 /**

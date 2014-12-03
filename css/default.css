@@ -47,3 +47,12 @@ input {
     -ms-user-select: none;
     user-select: none;
 }
+
+.fake-button {
+    margin-top: 14px;
+    height: 70px;
+    font-size: 63px;
+    font-style: italic;
+    text-align: left;
+    cursor: pointer;
+}

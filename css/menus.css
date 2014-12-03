@@ -31,6 +31,10 @@ body:not(.loading) #loader {
     box-sizing: border-box;
 }
 
+.menu .res-only {
+    display: none;
+}
+
 .menu.menu-left {
     left: 0;
 }
@@ -143,6 +147,10 @@ body.mobile .menu.menu-contracted.menu-center {
 
 body.mobile .menu hr {
     margin-right: 0;
+}
+
+body.mobile .menu .res-only-mobile {
+    display: block;
 }
 
 /* body.mobile .menu p {
