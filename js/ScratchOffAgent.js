@@ -1,7 +1,10 @@
-function ScratchOffAgent = function (settings) {
+/**
+ * 
+ */
+function ScratchOffAgent() {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = settings.width;
-    this.canvas.height = settings.height;
+    this.canvas.width = innerWidth;
+    this.canvas.height = innerHeight;
     
     this.context = this.canvas.getContext("2d");
     this.context.fillStyle = "#000000";
@@ -10,8 +13,13 @@ function ScratchOffAgent = function (settings) {
     
     this.lastX = -1;
     this.lastY = -1;
+    
+    document.body.appendChild(this.canvas);
 };
 
+/**
+ * 
+ */
 ScratchOffAgent.prototype.moveMouse = function (event) {
     if(this.lastX !== -1) {
         this.context.moveTo(this.lastX, this.lastY);

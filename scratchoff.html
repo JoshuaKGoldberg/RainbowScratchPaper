@@ -1,29 +1,6 @@
 <!DOCTYPE html>
 <html>
-<body>
-<canvas id="scratchOff" width="640" height="480"></canvas>
-
-<script>
-var scratchOff = document.getElementById("scratchOff")
-scratchOff.addEventListener("mousemove", mouseMove);
-black = scratchOff.getContext("2d");
-black.fillStyle = "#000000"
-black.fillRect(0,0,640,480)
-var dot = scratchOff.getContext("2d");
-dot.globalCompositeOperation = "destination-out";
-var lastX;
-var lastY;
-
-function mouseMove(event)
-{
-    dot.moveTo(lastX,lastY);
-    dot.lineTo(event.clientX,event.clientY);
-    dot.stroke();
-    lastX = event.clientX;
-    lastY = event.clientY;
-}
-</script>
-
-
-</body>
+    <body>
+        <script src="js/ScratchOffAgent.js"></script>
+    </body>
 </html>
