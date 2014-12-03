@@ -31,6 +31,7 @@ RainbowScratchPaper.prototype.setButtonCallbacks = function () {
         "back-upload": this.uploadImage.bind(
             this, this.BackgroundAgent.useUploadedImage.bind(this.BackgroundAgent)
         ),
+        "back-generate": this.BackgroundAgent.generateBackground.bind(this.BackgroundAgent),
         "save": this.saveScreenshot.bind(this)
     });
     
