@@ -181,3 +181,8 @@ body.desktop .menu.menu-contracted {
 
 /* Facebook embed hold */
 
+.menu .embed-holder {
+    position: fixed;
+    top: 7px;
+    right: 7px;
+}
