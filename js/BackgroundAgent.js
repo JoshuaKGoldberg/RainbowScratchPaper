@@ -3,16 +3,17 @@
  */
 function BackgroundAgent() {
     this.canvas = document.createElement("canvas");
+    this.canvas.id = "BackgroundCanvas";
     this.canvas.width = innerWidth;
     this.canvas.height = innerHeight;
     
     this.context = this.canvas.getContext("2d");
     
     this.rainbowColors = [
-        "red", "orange", "yellow", "green", "blue", "purple"
+        "darkorange", "yellow", "green", "blue", "purple", "red"
     ];
     this.rainbowStops = [
-        0, .2, .35, .5, .8, .9
+        .15, .25, .4, .6, .75, .9
     ];
     
     document.body.appendChild(this.canvas);
@@ -29,13 +30,6 @@ BackgroundAgent.prototype.useUploadedImage = function (dataURL) {
     }).bind(this);
     
     image.src = dataURL;
-};
-
-/**
- * 
- */
-BackgroundAgent.prototype.launchImageChooser = function () {
-    
 };
 
 /**
@@ -80,4 +74,19 @@ BackgroundAgent.prototype.getRandomLinearGradient = function () {
                 0, 0, this.canvas.width, this.canvas.height
             );
     }
+};
+
+/**
+ * 
+ */
+BackgroundAgent.prototype.getRandomRainbowStops = function () {
+    var output = new Array(6),
+        total = 0, i;
+    
+    for(i = 0; i < 6; i += 1) {
+        output[i] = total + (15 + (Math.floor(Math.random() * 14) - 7)) / 100;
+        total = output[i];
+    }
+    
+    return output;
 };

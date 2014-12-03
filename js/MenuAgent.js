@@ -105,25 +105,25 @@ MenuAgent.prototype.setButtonEffects = function () {
             var button = event.target,
                 information = button.getAttribute("alt").split(/\.(.+)?/);
             
-            this.helpHead.textContent = information[0];
-            this.helpParagraph.textContent = information[1];
+            this.helpHead.innerHTML = information[0];
+            this.helpParagraph.innerHTML = information[1];
         }).bind(this),
         buttonMouseOut = (function (event) {
             var button = event.target,
                 information = button.getAttribute("alt").split(/\.(.+)?/);
             
-            if(this.helpHead.textContent !== information[0]) {
+            if(this.helpHead.innerHTML !== information[0]) {
                 return;
             }
             
-            this.helpHead.textContent = this.helpHead.getAttribute("alt");
-            this.helpParagraph.textContent = this.helpParagraph.getAttribute("alt");
+            this.helpHead.innerHTML = this.helpHead.getAttribute("alt");
+            this.helpParagraph.innerHTML = this.helpParagraph.getAttribute("alt");
         }).bind(this),
         button, i;
     
     // Store the original content of the help elements as the alt version
-    this.helpHead.setAttribute("alt", this.helpHead.textContent);
-    this.helpParagraph.setAttribute("alt", this.helpParagraph.textContent);
+    this.helpHead.setAttribute("alt", this.helpHead.innerHTML);
+    this.helpParagraph.setAttribute("alt", this.helpParagraph.innerHTML);
     
     // Give each button the MouseOver and MouseOut attributes
     for(i = 0; i < this.buttons.length; i += 1) {

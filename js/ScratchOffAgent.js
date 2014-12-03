@@ -3,6 +3,7 @@
  */
 function ScratchOffAgent() {
     this.canvas = document.createElement("canvas");
+    this.canvas.id = "ScratchOffCanvas";
     this.canvas.width = innerWidth;
     this.canvas.height = innerHeight;
     
