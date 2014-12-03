@@ -86,6 +86,7 @@ body.mobile .menu {
     right: 0;
     height: auto;
     width: 100%;
+    font-size: 1.75em;
 }
 
 body.mobile .menu.menu-left {
@@ -126,6 +127,7 @@ body.mobile .menu p {
 
 body.tablet .menu {
     height: auto;
+    font-size: 1.4em;
 }
 
 body.tablet .menu.menu-left,
@@ -135,9 +137,10 @@ body.tablet .menu.menu-right {
 }
 
 body.tablet .menu.menu-center {
-    left: 7em;
-    right: 7em;
+    left: 0;
+    right: 0;
     height: 8.4em;
+    bottom: 0;
 }
 
 body.tablet .menu.menu-contracted.menu-left,

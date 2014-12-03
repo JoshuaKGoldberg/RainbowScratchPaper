@@ -78,8 +78,8 @@ ScratchOffAgent.prototype.mouseMove = function (event) {
     if(
         this.active
         && this.lastX !== -1
-        && Math.abs(event.clientX - this.lastX) < 140
-        && Math.abs(event.clientY - this.lastY) < 140
+        // && Math.abs(event.clientX - this.lastX) < 140
+        // && Math.abs(event.clientY - this.lastY) < 140
     ) {
         this.context.moveTo(this.lastX, this.lastY);
         this.context.lineTo(event.clientX, event.clientY);
