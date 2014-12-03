@@ -31,6 +31,7 @@ function ScratchOffAgent() {
  */
 ScratchOffAgent.prototype.mouseDown = function (event) {
     this.active = true;
+    this.context.beginPath();
 };
 
 /**

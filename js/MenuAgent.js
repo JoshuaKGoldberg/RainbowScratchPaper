@@ -61,14 +61,15 @@ MenuAgent.prototype.getElements = function () {
     this.helpParagraph = this.help.querySelector("p"); 
     
     this.heads = this.container.querySelectorAll(".menu h1");
+    
+    this.buttons = this.container.querySelectorAll(".menu input[type=button]");
 };
 
 /**
  * 
  */
 MenuAgent.prototype.setButtonEffects = function () {
-    var buttons = this.container.querySelectorAll(".menu input[type=button]"),
-        buttonMouseOver = (function (event) {
+    var buttonMouseOver = (function (event) {
             var button = event.target,
                 information = button.getAttribute("alt").split(/\.(.+)?/);
             
@@ -93,8 +94,8 @@ MenuAgent.prototype.setButtonEffects = function () {
     this.helpParagraph.setAttribute("alt", this.helpParagraph.textContent);
     
     // Give each button the MouseOver and MouseOut attributes
-    for(i = 0; i < buttons.length; i += 1) {
-        button = buttons[i];
+    for(i = 0; i < this.buttons.length; i += 1) {
+        button = this.buttons[i];
         
         button.onmouseover = buttonMouseOver;
         button.onmouseout = setTimeout.bind(window, buttonMouseOut, 140);
@@ -118,4 +119,28 @@ MenuAgent.prototype.toggleMenuClasses = function (classOld, classNew) {
         
         head.onclick = this.toggleMenuClasses.bind(this, classNew, classOld);
     }
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.setButtonCallbacks = function (callbacks) {
+    for(var i = 0; i < this.buttons.length; i += 1) {
+        this.buttons[i].onclick = this.setButtonActive.bind(
+            this,
+            this.buttons[i],
+            callbacks[this.buttons[i].id]
+        );
+    }
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.setButtonActive = function (button, callback) {
+    for(var i = 0; i < this.buttons.length; i += 1) {
+        this.buttons[i].className = this.buttons[i].className.replace(" active", "");
+    }
+    button.className += " active";
+    callback();
 };

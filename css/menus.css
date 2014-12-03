@@ -69,6 +69,11 @@ body:not(.loading) #loader {
     cursor: pointer;
 }
 
+.menu input[type=button].active {
+    border: 1px solid #4d90fe;
+    box-shadow: 0 0 7px 3px #336699;
+}
+
 
 /* Mobile styles */
 
