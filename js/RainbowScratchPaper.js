@@ -1,5 +1,11 @@
 /**
+ * Creates a RainbowScratchPaper wrapper instance around a MenuAgent, 
+ * ScratchOffAgent, and BackgroundAgent. This then sets button callbacks
+ * to link the agents, clicks the back-generate button, and waits for
+ * input.
  * 
+ * @constructor
+ * @this {RainbowScratchPaper}
  */
 function RainbowScratchPaper() {
     this.MenuAgent = new MenuAgent();
@@ -13,7 +19,11 @@ function RainbowScratchPaper() {
 }
 
 /**
+ * Initializes the button callbacks for the MenuAgent's buttons. These are 
+ * mostly brush size buttons calling ScratchOffAgent.setBrushSize or random
+ * action buttons to particular agents.
  * 
+ * @this {RainbowScratchPaper}
  */
 RainbowScratchPaper.prototype.setButtonCallbacks = function () {
     this.MenuAgent.setButtonStatusCallbacks({
@@ -41,15 +51,22 @@ RainbowScratchPaper.prototype.setButtonCallbacks = function () {
 };
 
 /**
+ * Sets the onMouseUp and onMouseDown callbacks for this.ScratchOffAgent so it
+ * knows to hide itself when the path is being drawn.
  * 
+ * @this {RainbowScratchPaper}
  */
 RainbowScratchPaper.prototype.setMenuScratchHiding = function () {
-    this.ScratchOffAgent.onMouseDown = this.MenuAgent.hide.bind(this.MenuAgent);
     this.ScratchOffAgent.onMouseUp = this.MenuAgent.show.bind(this.MenuAgent);
+    this.ScratchOffAgent.onMouseDown = this.MenuAgent.hide.bind(this.MenuAgent);
 };
 
 /**
+ * Saves a screenshot of the two canvases. This is done by making a new canvas
+ * of the same size as them, drawing them onto it in order, then making a dummy
+ * link to download the .toDataURL of the image.
  * 
+ * @this {RainbowScratchPaper}
  */
 RainbowScratchPaper.prototype.saveScreenshot = function () {
     var canvas = document.createElement("canvas"),
