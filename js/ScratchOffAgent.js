@@ -17,12 +17,15 @@ function ScratchOffAgent() {
     this.lastY = -1;
     
     this.active = false;
+    this.onMouseDown = undefined;
+    this.onMouseUp = undefined;
     
     this.setBrushSize(14);
     
-    document.addEventListener("mousedown", this.mouseDown.bind(this));
-    document.addEventListener("mouseup", this.mouseUp.bind(this));
-    document.addEventListener("mousemove", this.mouseMove.bind(this));
+    this.canvas.addEventListener("mousedown", this.mouseDown.bind(this));
+    this.canvas.addEventListener("mouseup", this.mouseUp.bind(this));
+    this.canvas.addEventListener("mousemove", this.mouseMove.bind(this));
+    
     document.body.appendChild(this.canvas);
 };
 
@@ -32,6 +35,10 @@ function ScratchOffAgent() {
 ScratchOffAgent.prototype.mouseDown = function (event) {
     this.active = true;
     this.context.beginPath();
+    
+    if(this.onMouseDown) {
+        this.onMouseDown(event);
+    }
 };
 
 /**
@@ -39,6 +46,10 @@ ScratchOffAgent.prototype.mouseDown = function (event) {
  */
 ScratchOffAgent.prototype.mouseUp = function (event) {
     this.active = false;
+    
+    if(this.onMouseUp) {
+        this.onMouseUp(event);
+    }
 };
 
 /**

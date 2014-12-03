@@ -7,6 +7,7 @@ function RainbowScratchPaper() {
     this.BackgroundAgent = new BackgroundAgent();
     
     this.setButtonCallbacks();
+    this.setMenuScratchHiding();
 }
 
 /**
@@ -20,4 +21,13 @@ RainbowScratchPaper.prototype.setButtonCallbacks = function () {
         "brush-4": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 14),
     });
     this.MenuAgent.buttons[0].click();
+};
+
+/**
+ * 
+ */
+RainbowScratchPaper.prototype.setMenuScratchHiding = function () {
+    this.ScratchOffAgent.onMouseDown = this.MenuAgent.toggleMenuClasses.bind(
+        this.MenuAgent, "menu-expanded", "menu-contracted"
+    );
 };

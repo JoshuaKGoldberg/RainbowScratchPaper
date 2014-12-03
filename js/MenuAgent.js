@@ -77,9 +77,6 @@ MenuAgent.prototype.setButtonEffects = function () {
             
             this.helpHead.textContent = information[0];
             this.helpParagraph.textContent = information[1];
-            
-            event.preventDefault();
-            event.stopPropagation();
         }).bind(this),
         buttonMouseOut = (function (event) {
             var button = event.target,
@@ -91,9 +88,6 @@ MenuAgent.prototype.setButtonEffects = function () {
             
             this.helpHead.textContent = this.helpHead.getAttribute("alt");
             this.helpParagraph.textContent = this.helpParagraph.getAttribute("alt");
-            
-            event.preventDefault();
-            event.stopPropagation();
         }).bind(this),
         button, i;
     
@@ -150,10 +144,16 @@ MenuAgent.prototype.setButtonCallbacks = function (callbacks) {
 /**
  * 
  */
-MenuAgent.prototype.setButtonActive = function (button, callback) {
+MenuAgent.prototype.setButtonActive = function (button, callback, event) {
     for(var i = 0; i < this.buttons.length; i += 1) {
         this.buttons[i].className = this.buttons[i].className.replace(" active", "");
     }
     button.className += " active";
     callback();
+    
+    console.log("Durp.");
+    if(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 };
