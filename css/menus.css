@@ -39,6 +39,11 @@ body:not(.loading) #loader {
     right: 0;
 }
 
+.menu.menu-contracted p,
+.menu .menu-contracted input {
+    display: none; /* This allows touch events to happen */
+}
+
 
 /* Menu children */
 
@@ -160,7 +165,7 @@ body.tablet .menu.menu-right {
 body.tablet .menu.menu-center {
     left: 0;
     right: 0;
-    height: 8.4em;
+    /* height: 8.4em; */
     bottom: 0;
 }
 
