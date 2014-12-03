@@ -97,7 +97,7 @@ MenuAgent.prototype.setButtonEffects = function () {
         button = buttons[i];
         
         button.onmouseover = buttonMouseOver;
-        button.onmouseout = buttonMouseOut;
+        button.onmouseout = setTimeout.bind(window, buttonMouseOut, 140);
         
         button.style.backgroundImage = "url('"
             + this.sourceDir + "/assets/buttons/" + button.id + ".png')";
