@@ -33,6 +33,13 @@ canvas {
     height: 100%;
 }
 
+body canvas:not(:first-of-type) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -7;
+}
+
 input {
     outline: 0;
     -webkit-touch-callout: none;
