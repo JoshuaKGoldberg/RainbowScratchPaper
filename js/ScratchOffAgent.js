@@ -1,5 +1,11 @@
 /**
+ * Creates an instance of ScratchOffAgent. The agent creates for itself a 
+ * <canvas> element sized at window.innerWidth and window.innerHeight, binds
+ * the required set of mouse and touch movements to the canvas, and appends
+ * that canvas to the body.
  * 
+ * @constructor
+ * @this {ScratchOffAgent}
  */
 function ScratchOffAgent() {
     this.canvas = document.createElement("canvas");
@@ -28,14 +34,16 @@ function ScratchOffAgent() {
     this.canvas.addEventListener("touchmove", this.touchMove.bind(this));
     this.canvas.addEventListener("touchend", this.mouseUp.bind(this));
     
-    
     document.body.addEventListener("mouseout", this.mouseUp.bind(this));
     
     document.body.appendChild(this.canvas);
 };
 
 /**
+ * Resets the canvas and context for a ScratchOffAgent by covering the canvas
+ * in black and resetting the composite operation for the context.
  * 
+ * @this {ScratchOffAgent}
  */
 ScratchOffAgent.prototype.resetBlackCover = function () {
     this.context.globalCompositeOperation = "source-over";
@@ -48,7 +56,11 @@ ScratchOffAgent.prototype.resetBlackCover = function () {
 };
 
 /**
+ * Handles onMouseDown by starting a drawing path. If this.onMouseDown exists,
+ * it is called.
  * 
+ * @this {ScratchOffAgent}
+ * @param {MouseEvent/TouchEvent} event
  */
 ScratchOffAgent.prototype.mouseDown = function (event) {
     this.active = true;
@@ -60,11 +72,14 @@ ScratchOffAgent.prototype.mouseDown = function (event) {
 };
 
 /**
+ * Handles onMouseUp by clearing the drawing path. If this.onMouseUp exists,
+ * it is called.
  * 
+ * @this {ScratchOffAgent}
+ * @param {MouseEvent/TouchEvent} event
  */
 ScratchOffAgent.prototype.mouseUp = function (event) {
     this.active = false;
-    this.context.save();
     
     if(this.onMouseUp) {
         this.onMouseUp(event);
@@ -72,7 +87,12 @@ ScratchOffAgent.prototype.mouseUp = function (event) {
 };
 
 /**
+ * Handles mouse movement by drawing a path from the most recently known point
+ * to the newly hit point (assuming an old point exists), then storing the new
+ * coordinates.
  * 
+ * @this {ScratchOffAgent}
+ * @param {MouseEvent/TouchEvent} event
  */
 ScratchOffAgent.prototype.mouseMove = function (event) {
     if(
@@ -91,7 +111,13 @@ ScratchOffAgent.prototype.mouseMove = function (event) {
 };
 
 /**
+ * Custom handler for onTouchMove. The event stores the coordinates inside
+ * a series of TouchEvents, so the first one is what's called. The event also
+ * has preventDefault() called to stop window dragging, and stopPropagation()
+ * for miscellaneous reasons.
  * 
+ * @this {ScratchOffAgent}
+ * @param {TouchEvent} event
  */
 ScratchOffAgent.prototype.touchMove = function (event) {
     this.mouseMove(event.touches[0]);
@@ -101,14 +127,21 @@ ScratchOffAgent.prototype.touchMove = function (event) {
 };
 
 /**
+ * Sets the brush size for context drawing paths.
  * 
+ * @this {ScratchOffAgent}
+ * @param {Number} size
  */
 ScratchOffAgent.prototype.setBrushSize = function (size) {
     this.context.lineWidth = size;
 };
 
 /**
+ * Toggles whether the Toggles whether the brush should 'erase' (add black 
+ * back) or 'draw' (remove black).
  * 
+ * @this {ScratchOffAgent}
+ * @param {MouseEvent/TouchEvent} [event]
  */
 ScratchOffAgent.prototype.toggleErasor = function (event) {
     if(this.erasing) {
@@ -127,7 +160,12 @@ ScratchOffAgent.prototype.toggleErasor = function (event) {
 };
 
 /**
+ * Starts the process of taking in an uploaded image by creating an Image
+ * element, loading the dataURL as the element's src, and preparing the Image
+ * to call this.drawImage when done.
  * 
+ * @this {ScratchOffAgent}
+ * @param {String} dataURL
  */
 ScratchOffAgent.prototype.useUploadedImage = function (dataURL) {
     var image = new Image();
@@ -136,7 +174,14 @@ ScratchOffAgent.prototype.useUploadedImage = function (dataURL) {
 };
 
 /**
+ * Draws an Image onto the foreground canvas. This is calculated by taking the
+ * image's ImageData, turning all the color bytes black, and converting all the
+ * alpha bytes to the average brightness of those color bytes. For example, if
+ * an [r,g,b] pair is [255,255,255] (white), the alpha will be 255, while if the
+ * pair is [255,0,0], the alpha will be (255+0+0)/3 = 85.
  * 
+ * @this {ScratchOffAgent}
+ * @param {HTMLImageElement} image
  */
 ScratchOffAgent.prototype.drawImage = function (image) {
     var dummy = document.createElement("canvas"),
@@ -154,7 +199,7 @@ ScratchOffAgent.prototype.drawImage = function (image) {
     for(i = 0; i < length; i += 4) {
         sum = bytes[i] + bytes[i + 1] + bytes[i + 2];
         bytes[i] = bytes[i + 1] = bytes[i + 2] = 0;
-        bytes[i + 3] = (sum / 4) | 0;
+        bytes[i + 3] = (sum / 3) | 0;
     }
     
     dummyData.data = bytes;
