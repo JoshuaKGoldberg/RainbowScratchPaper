@@ -15,6 +15,20 @@ function MenuAgent() {
 /**
  * 
  */
+MenuAgent.prototype.hide = function () {
+    this.container.className += " hidden";
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.show = function () {
+    this.container.className = this.container.className.replace(" hidden", "");
+};
+
+/**
+ * 
+ */
 MenuAgent.prototype.checkMobile = function () {
     // http://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
     var agent = navigator.userAgent || navigator.vendor || window.opera,
@@ -145,13 +159,15 @@ MenuAgent.prototype.setButtonCallbacks = function (callbacks) {
  * 
  */
 MenuAgent.prototype.setButtonActive = function (button, callback, event) {
-    for(var i = 0; i < this.buttons.length; i += 1) {
-        this.buttons[i].className = this.buttons[i].className.replace(" active", "");
+    var parent = button.parentElement,
+        i;
+    
+    for(i = 0; i < parent.children.length; i += 1) {
+        parent.children[i].className = parent.children[i].className.replace(" active", "");
     }
     button.className += " active";
-    callback();
     
-    console.log("Durp.");
+    callback(event);
     if(event) {
         event.preventDefault();
         event.stopPropagation();

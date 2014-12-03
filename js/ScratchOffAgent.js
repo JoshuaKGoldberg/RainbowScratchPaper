@@ -16,6 +16,7 @@ function ScratchOffAgent() {
     this.lastX = -1;
     this.lastY = -1;
     
+    this.erasing = false;
     this.active = false;
     this.onMouseDown = undefined;
     this.onMouseUp = undefined;
@@ -25,6 +26,7 @@ function ScratchOffAgent() {
     this.canvas.addEventListener("mousedown", this.mouseDown.bind(this));
     this.canvas.addEventListener("mouseup", this.mouseUp.bind(this));
     this.canvas.addEventListener("mousemove", this.mouseMove.bind(this));
+    document.body.addEventListener("mouseout", this.mouseUp.bind(this));
     
     document.body.appendChild(this.canvas);
 };
@@ -46,6 +48,7 @@ ScratchOffAgent.prototype.mouseDown = function (event) {
  */
 ScratchOffAgent.prototype.mouseUp = function (event) {
     this.active = false;
+    this.context.save();
     
     if(this.onMouseUp) {
         this.onMouseUp(event);
@@ -76,4 +79,23 @@ ScratchOffAgent.prototype.mouseMove = function (event) {
  */
 ScratchOffAgent.prototype.setBrushSize = function (size) {
     this.context.lineWidth = size;
+};
+
+/**
+ * 
+ */
+ScratchOffAgent.prototype.toggleErasor = function (event) {
+    if(this.erasing) {
+        this.context.globalCompositeOperation = "destination-out";
+        this.erasing = false;
+        event.target.className = event.target.className.replace(" active", "");
+    } else {
+        this.context.globalCompositeOperation = "source-over";
+        this.erasing = true;
+    }
+    
+    if(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 };

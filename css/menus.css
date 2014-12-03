@@ -19,6 +19,10 @@ body:not(.loading) #loader {
 
 /* General menu styles */
 
+#menus.hidden {
+    display: none;
+}
+
 .menu {
     position: absolute;
     bottom: 0;
