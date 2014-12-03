@@ -154,7 +154,7 @@ ScratchOffAgent.prototype.drawImage = function (image) {
     for(i = 0; i < length; i += 4) {
         sum = bytes[i] + bytes[i + 1] + bytes[i + 2];
         bytes[i] = bytes[i + 1] = bytes[i + 2] = 0;
-        bytes[i + 3] = sum < 7 ? 255 : 0;
+        bytes[i + 3] = (sum / 4) | 0;
     }
     
     dummyData.data = bytes;
