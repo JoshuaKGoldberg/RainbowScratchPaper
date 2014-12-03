@@ -17,24 +17,6 @@
 		<link href="css/menus.css" rel="stylesheet">
     </head>
     <body class="loading">
-        <script>
-          window.fbAsyncInit = function() {
-            FB.init({
-              appId      : '376630899165159',
-              xfbml      : true,
-              version    : 'v2.2'
-            });
-          };
-
-          (function(d, s, id){
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/sdk.js";
-             fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
-        </script>
-
         
         <header id="loader">
             <h1>Loading...</h1>
@@ -91,12 +73,7 @@
                     <h2>Global</h2>
                     <input type="button" id="save" alt="Save. Saves the complete image to your computer." />
                     <!-- <input type="button" id="share" alt="Share. Share your creation with your friends on Facebook!" /> -->
-                    <div class="embed-holder">
-                        <div
-                            class="fb-like"
-                            data-width="91">
-                        </div>
-                    </div>
+                    <div class="embed-holder"></div>
 
                 </div>
             </div>
