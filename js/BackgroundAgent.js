@@ -44,9 +44,6 @@ BackgroundAgent.prototype.launchImageChooser = function () {
 BackgroundAgent.prototype.generateBackground = function () {
     var gradient = this.getRandomLinearGradient(),
         i;
-        // this.context.createLinearGradient(
-            // 0, 0, this.canvas.width, this.canvas.height
-        // ),
     
     for(i = 0; i < this.rainbowColors.length; i += 1) {
         gradient.addColorStop(this.rainbowStops[i], this.rainbowColors[i]);

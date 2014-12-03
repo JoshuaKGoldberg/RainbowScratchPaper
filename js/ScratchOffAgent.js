@@ -113,5 +113,33 @@ ScratchOffAgent.prototype.toggleErasor = function (event) {
  * 
  */
 ScratchOffAgent.prototype.useUploadedImage = function (dataURL) {
+    var image = new Image();
+    image.onload = this.drawImage.bind(this, image);
+    image.src = dataURL;
+};
+
+/**
+ * 
+ */
+ScratchOffAgent.prototype.drawImage = function (image) {
+    var dummy = document.createElement("canvas"),
+        dummyContext = dummy.getContext("2d"),
+        dummyData, bytes, length, sum, i;
     
+    dummy.width = this.canvas.width;
+    dummy.height = this.canvas.height;
+    dummyContext.drawImage(image, 0, 0, dummy.width, dummy.height);
+    dummyData = dummyContext.getImageData(0, 0, dummy.width, dummy.height);
+    
+    bytes = dummyData.data;
+    length = dummyData.width * dummyData.height * 4;
+    
+    for(i = 0; i < length; i += 4) {
+        sum = bytes[i] + bytes[i + 1] + bytes[i + 2];
+        bytes[i] = bytes[i + 1] = bytes[i + 2] = 0;
+        bytes[i + 3] = sum < 7 ? 255 : 0;
+    }
+    
+    dummyData.data = bytes;
+    this.context.putImageData(dummyData, 0, 0);
 };
