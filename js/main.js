@@ -1,0 +1,1 @@
+var driver = new RainbowScratchPaper();
