@@ -60,8 +60,8 @@ RainbowScratchPaper.prototype.saveScreenshot = function () {
     canvas.width = this.ScratchOffAgent.canvas.width;
     canvas.height = this.ScratchOffAgent.canvas.height;
     
-    context.drawImage(this.ScratchOffAgent.canvas, 0, 0);
     context.drawImage(this.BackgroundAgent.canvas, 0, 0);
+    context.drawImage(this.ScratchOffAgent.canvas, 0, 0);
     
     link.download = "RainbowScratchPaper Screenshot.png";
     link.href = canvas.toDataURL(format).replace(format, "image/octet-stream");
