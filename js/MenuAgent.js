@@ -3,7 +3,7 @@
  */
 function MenuAgent() {
     this.sourceDir = location.href.slice(0, location.href.lastIndexOf("/"));
-    this.container = document.body;
+    this.parent = document.body;
     
     this.checkMobile();
     this.getElements();
@@ -22,47 +22,49 @@ MenuAgent.prototype.checkMobile = function () {
 
     // Extremely skinny (<=350px or 1x2) windows are always mobile
     if(innerWidth <= 350 || innerHeight > innerWidth * 2) {
-        this.container.className = "mobile";
+        this.parent.className = "mobile";
         return;
     }
     
     // Extremely wide (2x1) windows are always desktop
     if(innerWidth > innerHeight * 2) {
-        this.container.className = "desktop";
+        this.parent.className = "desktop";
         return;
     }
     
     // Mobile detected is either tablet or mobile, depending on orientation
     if(isMobile) {
         if(innerWidth > innerHeight) {
-            this.container.className = "tablet";
+            this.parent.className = "tablet";
         } else {
-            this.container.className = "mobile";
+            this.parent.className = "mobile";
         }
         return;
     }
     
     // Windows that are otherwise <= 560px should be tablet
     if(innerWidth < 560) {
-        this.container.className = "tablet";
+        this.parent.className = "tablet";
         return;
     }
     
     // By default, everything else is desktop
-    this.container.className = "desktop";
+    this.parent.className = "desktop";
 };
 
 /** 
  * 
  */
 MenuAgent.prototype.getElements = function () {
-    this.help = this.container.querySelector("#help"),
+    this.container = this.parent.querySelector("#menus");
+    
+    this.help = this.parent.querySelector("#help"),
     this.helpHead = this.help.querySelector("h1"),
     this.helpParagraph = this.help.querySelector("p"); 
     
-    this.heads = this.container.querySelectorAll(".menu h1");
+    this.heads = this.parent.querySelectorAll(".menu h1");
     
-    this.buttons = this.container.querySelectorAll(".menu input[type=button]");
+    this.buttons = this.parent.querySelectorAll(".menu input[type=button]");
 };
 
 /**
@@ -75,6 +77,9 @@ MenuAgent.prototype.setButtonEffects = function () {
             
             this.helpHead.textContent = information[0];
             this.helpParagraph.textContent = information[1];
+            
+            event.preventDefault();
+            event.stopPropagation();
         }).bind(this),
         buttonMouseOut = (function (event) {
             var button = event.target,
@@ -86,6 +91,9 @@ MenuAgent.prototype.setButtonEffects = function () {
             
             this.helpHead.textContent = this.helpHead.getAttribute("alt");
             this.helpParagraph.textContent = this.helpParagraph.getAttribute("alt");
+            
+            event.preventDefault();
+            event.stopPropagation();
         }).bind(this),
         button, i;
     
@@ -108,7 +116,7 @@ MenuAgent.prototype.setButtonEffects = function () {
 /**
  * 
  */
-MenuAgent.prototype.toggleMenuClasses = function (classOld, classNew) {
+MenuAgent.prototype.toggleMenuClasses = function (classOld, classNew, event) {
     var head, menu, i;
     
     for(i = 0; i < this.heads.length; i += 1) {
@@ -118,6 +126,11 @@ MenuAgent.prototype.toggleMenuClasses = function (classOld, classNew) {
         menu.className = menu.className.replace(classOld, classNew);
         
         head.onclick = this.toggleMenuClasses.bind(this, classNew, classOld);
+    }
+    
+    if(event) {
+        event.preventDefault();
+        event.stopPropagation();
     }
 };
 

@@ -62,7 +62,7 @@ body:not(.loading) #loader {
     margin: 3px 1px;
     width: 2.8em;
     height: 2.8em;
-    background-color: transparent;
+    background-color: black;
     border: 1px solid rgba(140, 140, 140, .49);
     border-radius: .21em;
     background-size: 100% 100%;
