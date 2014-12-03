@@ -10,6 +10,8 @@ function MenuAgent() {
     this.setButtonEffects();
     
     this.toggleMenuClasses("menu-contracted", "menu-expanded");
+    
+    window.addEventListener("resize", this.checkMobile.bind(this));
 }
 
 /**
