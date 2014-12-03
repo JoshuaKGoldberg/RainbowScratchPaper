@@ -108,3 +108,10 @@ ScratchOffAgent.prototype.toggleErasor = function (event) {
         event.stopPropagation();
     }
 };
+
+/**
+ * 
+ */
+ScratchOffAgent.prototype.useUploadedImage = function (dataURL) {
+    
+};

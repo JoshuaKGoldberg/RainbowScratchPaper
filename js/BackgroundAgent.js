@@ -8,8 +8,14 @@ function BackgroundAgent() {
     document.body.appendChild(this.canvas);
 }
 
-BackgroundAgent.prototype.uploadImage = function () {
+BackgroundAgent.prototype.useUploadedImage = function (dataURL) {
+    var image = new Image();
     
+    image.onload = (function () {
+        this.context.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+    }).bind(this);
+    
+    image.src = dataURL;
 };
 
 BackgroundAgent.prototype.launchImageChooser = function () {

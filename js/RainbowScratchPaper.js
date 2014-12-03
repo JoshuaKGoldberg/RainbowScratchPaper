@@ -24,6 +24,12 @@ RainbowScratchPaper.prototype.setButtonCallbacks = function () {
     
     this.MenuAgent.setButtonActionCallbacks({
         "front-refresh": this.ScratchOffAgent.resetBlackCover.bind(this.ScratchOffAgent),
+        "front-upload": this.uploadImage.bind(
+            this, this.ScratchOffAgent.useUploadedImage.bind(this.ScratchOffAgent)
+        ),
+        "back-upload": this.uploadImage.bind(
+            this, this.BackgroundAgent.useUploadedImage.bind(this.BackgroundAgent)
+        ),
         "save": this.saveScreenshot.bind(this)
     });
     
@@ -62,5 +68,27 @@ RainbowScratchPaper.prototype.saveScreenshot = function () {
  * 
  */
 RainbowScratchPaper.prototype.uploadImage = function (callback) {
+    var dummy = document.createElement("input");
     
+    dummy.type = "file";
+    dummy.onchange = this.handleImageUpload.bind(this, dummy, callback);
+    
+    dummy.click();
+};
+
+/**
+ * 
+ */
+RainbowScratchPaper.prototype.handleImageUpload = function (dummy, callback, event) {
+    var file = dummy.files[0],
+        type = file.type.split("/")[1],
+        reader = new FileReader();
+    
+    reader.onloadend = function () {
+        callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+    
+    event.preventDefault();
+    event.stopPropagation();
 };
