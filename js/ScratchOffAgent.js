@@ -8,8 +8,10 @@ function ScratchOffAgent() {
     
     this.context = this.canvas.getContext("2d");
     this.context.fillStyle = "#000000";
+    
     this.context.fillRect(0, 0, innerWidth, innerHeight);
     this.context.globalCompositionOperation = "destination-out";
+    this.context.lineCap = "round";
     
     this.lastX = -1;
     this.lastY = -1;
