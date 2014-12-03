@@ -51,17 +51,17 @@ MenuAgent.prototype.show = function () {
  * @this {MenuAgent}
  */
 MenuAgent.prototype.checkMobile = function () {
-    // Extremely skinny (<=350px or 1x2) windows are always mobile
-    if(innerWidth <= 350 || innerHeight > innerWidth * 2) {
-        this.parent.className = "mobile";
-        return;
-    }
+    // // Extremely skinny (<=350px or 1x2) windows are always mobile
+    // if(innerWidth <= 350 || innerHeight > innerWidth * 2) {
+        // this.parent.className = "mobile";
+        // return;
+    // }
     
-    // Extremely wide (2x1) windows are always desktop
-    if(innerWidth > innerHeight * 2) {
-        this.parent.className = "desktop";
-        return;
-    }
+    // // Extremely wide (2x1) windows are always desktop
+    // if(innerWidth > innerHeight * 2) {
+        // this.parent.className = "desktop";
+        // return;
+    // }
     
     // Mobile detected is either tablet or mobile, depending on orientation
     if(this.isMobile) {
@@ -229,7 +229,7 @@ MenuAgent.prototype.setButtonActionCallbacks = function (callbacks) {
         }
         
         button = this.buttonsKeyed[i];
-        button.onclick = this.callButtonAction.bind(
+        button.onclick = button.ontouchstart = this.callButtonAction.bind(
             this, button, callbacks[i]
         );
     }
