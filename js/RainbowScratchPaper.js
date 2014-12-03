@@ -32,7 +32,7 @@ RainbowScratchPaper.prototype.setButtonCallbacks = function () {
         "brush-3": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 7),
         "brush-4": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 14),
         "brush-5": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 28),
-        "erasor": this.ScratchOffAgent.toggleErasor.bind(this.ScratchOffAgent)
+        "eraser": this.ScratchOffAgent.toggleErasor.bind(this.ScratchOffAgent)
     });
     
     this.MenuAgent.setButtonActionCallbacks({
