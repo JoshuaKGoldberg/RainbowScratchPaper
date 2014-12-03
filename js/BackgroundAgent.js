@@ -1,5 +1,11 @@
 /**
+ * Creates an instance of BackgroundAgent. The agent creates for itself a
+ * <canvas> element sized at window.innerWidth and window.innerHeight and 
+ * appends that canvas to the body. It also has some functionality to generate
+ * or upload an image for that background
  * 
+ * @constructor
+ * @this {BackgroundAgent}
  */
 function BackgroundAgent() {
     this.canvas = document.createElement("canvas");
@@ -20,7 +26,12 @@ function BackgroundAgent() {
 }
 
 /**
+ * Starts the process of taking in an uploaded iamge by creating an Image
+ * element, loading the dataURL as the element's src, and preparing the Image
+ * to call this.context.drawImage when done.
  * 
+ * @this {BackgroundAgent}
+ * @param {String} dataURL
  */
 BackgroundAgent.prototype.useUploadedImage = function (dataURL) {
     var image = new Image();
@@ -33,7 +44,12 @@ BackgroundAgent.prototype.useUploadedImage = function (dataURL) {
 };
 
 /**
+ * Randomly generates a rainbow background. The rainbow colors and color stop
+ * locations are already set (by the constructor), but the actual angle is
+ * randomly set by this.getRandomLinearGradient(). It's then drawn onto
+ * the canvas.
  * 
+ * @this {BackgroundAgent}
  */
 BackgroundAgent.prototype.generateBackground = function () {
     var gradient = this.getRandomLinearGradient(),
@@ -49,7 +65,11 @@ BackgroundAgent.prototype.generateBackground = function () {
 
 
 /**
+ * Creates one of four possible createLinearGradient angles. Each is a 
+ * different source corner, and all are sized to this.canvas.
  * 
+ * @this {BackgroundAgent}
+ * @return {CanvasGradient}
  */
 BackgroundAgent.prototype.getRandomLinearGradient = function () {
     switch(Math.floor(Math.random() * 4)) {
@@ -74,19 +94,4 @@ BackgroundAgent.prototype.getRandomLinearGradient = function () {
                 0, 0, this.canvas.width, this.canvas.height
             );
     }
-};
-
-/**
- * 
- */
-BackgroundAgent.prototype.getRandomRainbowStops = function () {
-    var output = new Array(6),
-        total = 0, i;
-    
-    for(i = 0; i < 6; i += 1) {
-        output[i] = total + (15 + (Math.floor(Math.random() * 14) - 7)) / 100;
-        total = output[i];
-    }
-    
-    return output;
 };
