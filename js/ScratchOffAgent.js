@@ -21,8 +21,14 @@ function ScratchOffAgent() {
     this.setBrushSize(14);
     
     this.canvas.addEventListener("mousedown", this.mouseDown.bind(this));
-    this.canvas.addEventListener("mouseup", this.mouseUp.bind(this));
     this.canvas.addEventListener("mousemove", this.mouseMove.bind(this));
+    this.canvas.addEventListener("mouseup", this.mouseUp.bind(this));
+    
+    this.canvas.addEventListener("touchstart", this.mouseDown.bind(this));
+    this.canvas.addEventListener("touchmove", this.touchMove.bind(this));
+    this.canvas.addEventListener("touchend", this.mouseUp.bind(this));
+    
+    
     document.body.addEventListener("mouseout", this.mouseUp.bind(this));
     
     document.body.appendChild(this.canvas);
@@ -82,6 +88,16 @@ ScratchOffAgent.prototype.mouseMove = function (event) {
     
     this.lastX = event.clientX;
     this.lastY = event.clientY;
+};
+
+/**
+ * 
+ */
+ScratchOffAgent.prototype.touchMove = function (event) {
+    this.mouseMove(event.touches[0]);
+    
+    event.preventDefault();
+    event.stopPropagation();
 };
 
 /**
