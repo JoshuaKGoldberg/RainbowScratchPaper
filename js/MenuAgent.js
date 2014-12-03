@@ -79,6 +79,22 @@ MenuAgent.prototype.getElements = function () {
     this.heads = this.parent.querySelectorAll(".menu h1");
     
     this.buttons = this.parent.querySelectorAll(".menu input[type=button]");
+    
+    this.buttonsKeyed = this.getButtonsKeyed();
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.getButtonsKeyed = function () {
+    var output = {},
+        i;
+    
+    for(i = 0; i < this.buttons.length; i += 1) {
+        output[this.buttons[i].id] = this.buttons[i];
+    }
+    
+    return output;
 };
 
 /**
@@ -145,12 +161,35 @@ MenuAgent.prototype.toggleMenuClasses = function (classOld, classNew, event) {
 /**
  * 
  */
-MenuAgent.prototype.setButtonCallbacks = function (callbacks) {
-    for(var i = 0; i < this.buttons.length; i += 1) {
-        this.buttons[i].onclick = this.setButtonActive.bind(
-            this,
-            this.buttons[i],
-            callbacks[this.buttons[i].id]
+MenuAgent.prototype.setButtonStatusCallbacks = function (callbacks) {
+    var button, i;
+    
+    for(i in callbacks) {
+        if(!callbacks.hasOwnProperty(i)) {
+            continue;
+        }
+        
+        button = this.buttonsKeyed[i];
+        button.onclick = this.setButtonActive.bind(
+            this, button, callbacks[i]
+        );
+    }
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.setButtonActionCallbacks = function (callbacks) {
+    var button, i;
+    
+    for(i in callbacks) {
+        if(!callbacks.hasOwnProperty(i)) {
+            continue;
+        }
+        
+        button = this.buttonsKeyed[i];
+        button.onclick = this.callButtonAction.bind(
+            this, button, callbacks[i]
         );
     }
 };
@@ -167,6 +206,13 @@ MenuAgent.prototype.setButtonActive = function (button, callback, event) {
     }
     button.className += " active";
     
+    this.callButtonAction(button, callback, event);
+};
+
+/**
+ * 
+ */
+MenuAgent.prototype.callButtonAction = function (button, callback, event) {
     callback(event);
     if(event) {
         event.preventDefault();

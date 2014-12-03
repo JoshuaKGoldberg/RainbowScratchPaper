@@ -7,11 +7,7 @@ function ScratchOffAgent() {
     this.canvas.height = innerHeight;
     
     this.context = this.canvas.getContext("2d");
-    this.context.fillStyle = "#000000";
-    this.context.fillRect(0, 0, innerWidth, innerHeight);
-    
-    this.context.globalCompositeOperation = "destination-out";
-    this.context.lineCap = "round";
+    this.resetBlackCover();
     
     this.lastX = -1;
     this.lastY = -1;
@@ -29,6 +25,19 @@ function ScratchOffAgent() {
     document.body.addEventListener("mouseout", this.mouseUp.bind(this));
     
     document.body.appendChild(this.canvas);
+};
+
+/**
+ * 
+ */
+ScratchOffAgent.prototype.resetBlackCover = function () {
+    this.context.globalCompositeOperation = "source-over";
+    
+    this.context.fillStyle = "#000000";
+    this.context.fillRect(0, 0, innerWidth, innerHeight);
+    
+    this.context.globalCompositeOperation = "destination-out";
+    this.context.lineCap = "round";
 };
 
 /**

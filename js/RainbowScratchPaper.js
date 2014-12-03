@@ -14,12 +14,16 @@ function RainbowScratchPaper() {
  * 
  */
 RainbowScratchPaper.prototype.setButtonCallbacks = function () {
-    this.MenuAgent.setButtonCallbacks({
+    this.MenuAgent.setButtonStatusCallbacks({
         "brush-1": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 1),
         "brush-2": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 3),
         "brush-3": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 7),
         "brush-4": this.ScratchOffAgent.setBrushSize.bind(this.ScratchOffAgent, 14),
         "erasor": this.ScratchOffAgent.toggleErasor.bind(this.ScratchOffAgent)
+    });
+    
+    this.MenuAgent.setButtonActionCallbacks({
+        "front-refresh": this.ScratchOffAgent.resetBlackCover.bind(this.ScratchOffAgent)
     });
     
     this.MenuAgent.buttons[1].click();
